@@ -6,20 +6,30 @@ import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
-import { InputNode } from './nodes/inputNode';
-import { LLMNode } from './nodes/llmNode';
-import { OutputNode } from './nodes/outputNode';
-import { TextNode } from './nodes/textNode';
+import inputNode from './nodes/inputNode';
+import llmNode from './nodes/llmNode';
+import outputNode from './nodes/outputNode';
+import textNode from './nodes/textNode';  
+import LoggerNode from './nodes/subnodes/loggerNode';
+import APINode from './nodes/subnodes/apiNode';
+import FilterNode from './nodes/subnodes/filterNode';
+import MathNode from './nodes/subnodes/mathNode';
+import SwitchNode from './nodes/subnodes/switchNode';
 
 import 'reactflow/dist/style.css';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
 const nodeTypes = {
-  customInput: InputNode,
-  llm: LLMNode,
-  customOutput: OutputNode,
-  text: TextNode,
+  input: inputNode,
+  llm: llmNode,
+  output: outputNode,
+  text: textNode,
+  logger: LoggerNode,
+  api: APINode,
+  filter: FilterNode,
+  math: MathNode,
+  switch: SwitchNode,
 };
 
 const selector = (state) => ({

@@ -1,35 +1,35 @@
-// textNode.js
+import React, { useState, useEffect } from "react";
+import BaseNode from "./baseNode";
 
-import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+const TextNode = () => {
+  const [text, setText] = useState("");
+  const [variables, setVariables] = useState([]);
 
-export const TextNode = ({ id, data }) => {
-  const [currText, setCurrText] = useState(data?.text || '{{input}}');
-
-  const handleTextChange = (e) => {
-    setCurrText(e.target.value);
-  };
+  // Detect variables like {{input}}
+  useEffect(() => {
+    const matches = [...text.matchAll(/{{(.*?)}}/g)];
+    const vars = matches.map(m => m[1].trim());
+    setVariables([...new Set(vars)]);
+  }, [text]);
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <div>
-        <span>Text</span>
-      </div>
-      <div>
-        <label>
-          Text:
-          <input 
-            type="text" 
-            value={currText} 
-            onChange={handleTextChange} 
-          />
-        </label>
-      </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-output`}
+    <BaseNode
+      title="Text"
+      inputs={variables.map(v => ({ id: v }))}
+      outputs={[{ id: "output" }]}
+    >
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Enter text with {{variables}}"
+        className="w-full resize-none outline-none border rounded p-2 text-sm"
+        rows={Math.max(2, text.split("\n").length)}
+        style={{
+          height: `${Math.max(60, text.length * 0.5)}px`,
+        }}
       />
-    </div>
+    </BaseNode>
   );
-}
+};
+
+export default TextNode;
