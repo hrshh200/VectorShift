@@ -21,9 +21,9 @@ import 'reactflow/dist/style.css';
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
 const nodeTypes = {
-  input: inputNode,
+  customInput: inputNode,
   llm: llmNode,
-  output: outputNode,
+  customOutput: outputNode,
   text: textNode,
   logger: LoggerNode,
   api: APINode,

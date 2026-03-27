@@ -18,12 +18,12 @@ export const SubmitButton = () => {
         `📊 Pipeline Summary\n\n` +
         `Nodes: ${num_nodes}\n` +
         `Edges: ${num_edges}\n` +
-        `Is DAG: ${is_dag ? "✅ Yes" : "❌ No"}`
+        `Is DAG: ${is_dag ? "Yes" : "No"}`
       );
 
     } catch (err) {
       console.error(err);
-      alert("❌ Failed to process pipeline");
+      alert("Failed to process pipeline");
     }
   };
 
